@@ -13,9 +13,9 @@ In order to change - make changes to App.tsx, entry-server.tsx, entry-client.tsx
 
 In order to build and publish:
 
-npm run build:client
-npm run build:server
-npm run serve
+npm run build:client  
+npm run build:server  
+npm run serve  
 
 The above commands will serve locally
 
