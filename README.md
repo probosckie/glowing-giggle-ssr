@@ -1,11 +1,23 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This template provides a minimal setup to get React working in Vite with SSR. Extra code has been added and a lot of debugging has been done to make SSR and CSR work with the basic vite setup.
 
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Changes and building
+
+In order to change - make changes to App.tsx, entry-server.tsx, entry-client.tsx, PageCSR.tsx, PageSSR.tsx.
+
+In order to build and publish:
+
+npm run build:client
+npm run build:server
+npm run serve
+
+The above commands will serve locally
 
 ## Expanding the ESLint configuration
 
