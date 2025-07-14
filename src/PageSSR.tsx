@@ -7,6 +7,7 @@ export default function PageSSR() {
     <div>
       <h1>Server-Side Rendered Page</h1>
       <p>This was rendered on the server at: {time}</p>
+      <div id="island-counter">Loading...</div>
     </div>
   );
 }

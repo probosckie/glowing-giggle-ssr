@@ -10,6 +10,7 @@ const isProd = process.env.NODE_ENV === "production";
 const app = express();
 
 let vite;
+let manifest;
 
 if (!isProd) {
   // Dev mode: Vite's dev server in middleware mode
@@ -21,7 +22,17 @@ if (!isProd) {
   app.use(vite.middlewares);
 } else {
   // Prod mode: Serve static assets from dist/client
-  app.use(express.static(path.resolve(__dirname, "dist/client")));
+  manifest = JSON.parse(
+    fs.readFileSync(
+      path.resolve(__dirname, "dist/client/.vite/manifest.json"),
+      "utf-8"
+    )
+  );
+  app.use(
+    express.static(path.resolve(__dirname, "dist/client"), {
+      index: false,
+    })
+  );
 }
 
 console.log("Registering wildcard SSR route...");
@@ -45,6 +56,13 @@ app.use(/.*/, async (req, res) => {
         path.resolve(__dirname, "dist/client/index.html"),
         "utf-8"
       );
+
+      const counterIslandSrc = manifest["src/islands/CounterIsland.tsx"].file;
+      const islandScript = `<script type="module" src="/${counterIslandSrc}"></script>`;
+
+      // Inject island script before </body>
+      template = template.replace("</body>", `${islandScript}</body>`);
+
       const serverEntry = await import(
         path.resolve(__dirname, "./dist/server/entry-server.js")
       );
